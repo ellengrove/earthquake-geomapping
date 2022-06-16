@@ -55,6 +55,20 @@ function createMap(markerLayer,tectonicCoords) {
         return div;
     }
     legend.addTo(map);  
+
+    // if earthquake layer is clicked, show legend
+    map.on('overlayadd', function(eventLayer){
+        if (eventLayer.name === 'Earthquakes'){
+            map.addControl(legend);
+        } 
+    });
+    
+    // if earthquake layer is unclicked, hide legend
+    map.on('overlayremove', function(eventLayer){
+        if (eventLayer.name === 'Earthquakes'){
+             map.removeControl(legend);
+        } 
+    });
 }
 
 let geoJson = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
