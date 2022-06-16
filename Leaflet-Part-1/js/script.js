@@ -24,6 +24,9 @@ function createMap(markerLayer) {
         "Earthquakes": earthquakeLayer
     };
     
+    osm.addTo(map);
+    earthquakeLayer.addTo(map);
+
     L.control.layers(baseLayers, overlays).addTo(map);
 
     // Set up the legend.
@@ -34,9 +37,9 @@ function createMap(markerLayer) {
         var labels=["-10-10","10-30",
                     "30-50","50-70","70-90","90+"];
         var grades = [9,29,49,69,89,91];
-        div.innerHTML=`<div><b>Depth</b></div`;
+        div.innerHTML=`<div><center><b>Depth</b></center></div`;
         for (var i = 0; i < grades.length; i++){
-            div.innerHTML+=`<li> <span style="background-color: ${pinColor(grades[i])}">test</span> ${labels[i]}</li>`; 
+            div.innerHTML+=`<li> <span style="background-color: ${pinColor(grades[i])}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ${labels[i]}</li>`; 
         }
         console.log(div);
         return div;
@@ -61,6 +64,8 @@ d3.json(geoJson).then(function(response) {
         let lon = earthquakes[i].geometry.coordinates[0];
         let depth = earthquakes[i].geometry.coordinates[2];
         let magnitude = earthquakes[i].properties.mag;
+        // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+        let time = timeConverter(earthquakes[i].properties.time);
 
         let marker = L.circleMarker([lat,lon],{
             radius : magnitude * 2.5,
@@ -69,7 +74,7 @@ d3.json(geoJson).then(function(response) {
             color : 'black',
             weight : .5
         })
-        .bindPopup(`${earthquakes[i].properties.place} <br> Magnitude: ${magnitude}`)
+        .bindPopup(`<center>${time}</center> <hr> <center> Magnitude: ${magnitude} </center>`)
 
         markerLayer.push(marker);
     }
@@ -102,3 +107,25 @@ function pinColor(depth) {
 
     return color
 }
+
+function timeConverter(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var date = month + ' ' + date + ' ' + year + ' ' + addZero(hour) + ':' + addZero(min) + ':' + addZero(sec) ;
+
+    return date;
+  }
+
+  function addZero(time) {
+    if (time < 10) {
+        newTime = '0' + time;
+    }
+    else newTime = time;
+    return newTime;
+  }
