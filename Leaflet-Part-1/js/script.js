@@ -94,7 +94,9 @@ d3.json(geoJson).then(function(response) {
             color : 'black',
             weight : .5
         })
-        .bindPopup(`<center>${time}</center> <hr> <center> Magnitude: ${magnitude} </center>`)
+        .bindPopup(`<center> ${earthquakes[i].properties.place} </center> <br>` + 
+        `<center>${time}</center> <br> <center> Magnitude: ${magnitude} </center> <br>` +
+        `<center> Depth: ${depth} </center>`)
         markerLayer.push(marker);
     }
 
