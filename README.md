@@ -1,6 +1,6 @@
 # earthquake-geomapping
 
-Geomap using Leaflet.js to track seismic activity across the world in the past 7 days using updated data published by the United States Geological Survey (USGS) Earthquakes Hazards Program. Map utilizes markers that illustrate location, depth, and magnitude of the earthquake, as well as pop-up boxes that provide descriptive information about the earthquake, including the date and time that the activity was detected. Map also makes use of Leaflet layers to view earthquake data superimposed on a topographical map with tectonic plate boundaries to contextualie the regions with the greatest seismic acivity.
+Geomap using Leaflet.js to track seismic activity across the world in the past 7 days using updated data published by the United States Geological Survey (USGS) Earthquakes Hazards Program. Map utilizes markers that illustrate location, depth, and magnitude of the earthquake, as well as pop-up boxes that provide descriptive information about the earthquake, including the date and time that the activity was detected. Map also makes use of Leaflet layers to view earthquake data superimposed on a topographical map with tectonic plate boundaries to contextualize the regions with the greatest seismic acivity.
 
 
 ## Data
